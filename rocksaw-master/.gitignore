@@ -1,0 +1,8 @@
+target
+.settings
+.classpath
+.project
+.scala_dependencies
+*.iml
+.idea
+build

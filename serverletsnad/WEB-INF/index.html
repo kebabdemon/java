@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Image Processing Form</title>
+</head>
+<body>
+<h1>Image Processing Form</h1>
+<form id="imageForm" action="/your-web-app-context/ServletObrazky" method="post" enctype="multipart/form-data">
+	<label for="image">Choose an image:</label>
+	<input type="file" name="image" accept="image/*">
+
+	<label for="type">Select Filter Type:</label>
+	<select name="type">
+		<option value="0">Gauss</option>
+		<option value="1">Gamma</option>
+	</select>
+
+	<label for="radius">Select Radius:</label>
+	<select name="radius">
+		<option value="1">1</option>
+		<option value="5">5</option>
+		<option value="10">10</option>
+		<option value="20">20</option>
+		<option value="50">50</option>
+	</select>
+
+	<input type="button" value="Apply Filter" onclick="submitForm()">
+</form>
+
+<div id="resultContainer">
+	<!-- Images will be displayed here -->
+</div>
+
+<script>
+	function submitForm() {
+		var formData = new FormData(document.getElementById('imageForm'));
+
+		// Perform AJAX submission
+		fetch('serverle', {
+			method: 'POST',
+			body: formData,
+		})
+				.then(response => response.text())
+				.then(data => {
+					// Update the content of the result container with the response
+					document.getElementById('resultContainer').innerHTML = data;
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+	}
+</script>
+</body>
+</html>
